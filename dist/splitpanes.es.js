@@ -183,7 +183,7 @@ const M = {
     // Called by Pane component on programmatic resize.
     requestUpdate({ target: e, ...i }) {
       const t = this.indexedPanes[e._.uid];
-      Object.entries(i).forEach(([n, s]) => t[n] = s), this.resetPaneSizes(), this.$emit("resize", this.panes.map((n) => ({ min: n.min, max: n.max, size: n.size })));
+      Object.entries(i).forEach(([n, s]) => t[n] = s), this.resetPaneSizes();
     },
     onPaneAdd(e) {
       let i = -1;
