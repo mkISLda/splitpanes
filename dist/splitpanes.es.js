@@ -90,7 +90,7 @@ const M = {
     // },
     // On splitter dbl click or dbl tap minimize this pane.
     onSplitterDblClick(e, i) {
-      this.panes = this.panes.map((t, n) => (t.size = n === i ? t.min : t.max, t)), this.$emit("pane-minimize", this.panes[i]), this.$emit("resized", this.panes.map((t) => ({ min: t.min, max: t.max, size: t.size })));
+      this.panes = this.panes.map((t, n) => (i == 1 && this.panes.length == 3 && (i = 0), t.size = n === i ? t.min : n == 1 ? t.max : t.size, t)), this.$emit("pane-minimize", this.panes[i]), this.$emit("resized", this.panes.map((t) => ({ min: t.min, max: t.max, size: t.size })));
     },
     onPaneClick(e, i) {
       this.$emit("pane-click", this.indexedPanes[i]);
@@ -397,12 +397,12 @@ const M = {
       this.$slots.default()
     );
   }
-}, x = (e, i) => {
+}, S = (e, i) => {
   const t = e.__vccOpts || e;
   for (const [n, s] of i)
     t[n] = s;
   return t;
-}, S = {
+}, x = {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "pane",
   inject: ["requestUpdate", "onPaneAdd", "onPaneRemove", "onPaneClick"],
@@ -458,7 +458,7 @@ function P(e, i, t, n, s, a) {
     f(e.$slots, "default")
   ], 4);
 }
-const g = /* @__PURE__ */ x(S, [["render", P]]);
+const g = /* @__PURE__ */ S(x, [["render", P]]);
 export {
   g as Pane,
   M as Splitpanes
