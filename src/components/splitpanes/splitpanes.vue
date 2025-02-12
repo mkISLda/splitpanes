@@ -480,6 +480,10 @@ export default {
         if (pane.size <= pane.min) unshrinkable.push(pane.id)
       })
 
+      console.info('leftToAllocate', leftToAllocate)
+      console.info('ungrowable', ungrowable)
+      console.info('unshrinkable', unshrinkable)
+
       // set pane sizes if not set.
       let leftToAllocate2 = 100
       if (leftToAllocate > 0.1) {
@@ -489,6 +493,8 @@ export default {
           }
           leftToAllocate2 -= pane.size
         })
+
+        console.info('leftToAllocate2', leftToAllocate2)
 
         if (leftToAllocate2 > 0.1) this.readjustSizes(leftToAllocate, ungrowable, unshrinkable)
       }
