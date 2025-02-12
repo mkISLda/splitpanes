@@ -152,7 +152,6 @@ export default {
     // On splitter dbl click or dbl tap minimize this pane.
     onSplitterDblClick (event, splitterIndex) {
       this.panes = this.panes.map((pane, i) => {
-        // Check later for only vertical panes
         if (splitterIndex == 1 && this.panes.length == 3) splitterIndex = 0
         pane.size = i === splitterIndex ? pane.min : i == 1 ? pane.max : pane.size
         return pane
@@ -446,7 +445,7 @@ export default {
     resetPaneSizes (changedPanes = {}) {
       if (!changedPanes.addedPane && !changedPanes.removedPane) this.initialPanesSizing()
       else if (this.panes.some(pane => pane.givenSize !== null || pane.min || pane.max < 100)) this.equalizeAfterAddOrRemove(changedPanes)
-      else this.equalize()
+      // else this.equalize()
 
       if (this.ready) this.$emit('resized', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
     },
