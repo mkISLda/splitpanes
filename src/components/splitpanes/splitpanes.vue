@@ -151,8 +151,11 @@ export default {
 
     // On splitter dbl click or dbl tap minimize this pane.
     onSplitterDblClick (event, splitterIndex) {
-      this.panes[splitterIndex].size = 0
-      this.$emit('pane-maximize', this.panes[splitterIndex])
+      this.panes = this.panes.map((pane, i) => {
+        pane.size = i === splitterIndex ? pane.min : pane.max
+        return pane
+      })
+      this.$emit('pane-minimize', this.panes[splitterIndex])
       this.$emit('resized', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
     },
 

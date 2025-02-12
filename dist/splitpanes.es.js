@@ -90,7 +90,7 @@ const M = {
     // },
     // On splitter dbl click or dbl tap minimize this pane.
     onSplitterDblClick(e, i) {
-      this.panes[i].size = 0, this.$emit("pane-maximize", this.panes[i]), this.$emit("resized", this.panes.map((t) => ({ min: t.min, max: t.max, size: t.size })));
+      this.panes = this.panes.map((t, n) => (t.size = n === i ? t.min : t.max, t)), this.$emit("pane-minimize", this.panes[i]), this.$emit("resized", this.panes.map((t) => ({ min: t.min, max: t.max, size: t.size })));
     },
     onPaneClick(e, i) {
       this.$emit("pane-click", this.indexedPanes[i]);
