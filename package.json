@@ -1,10 +1,10 @@
 {
-  "name": "vue-splitpanes",
+  "name": "splitpanes",
   "version": "3.1.8+1",
   "description": "A Vue.js reliable, simple and touch-ready panes splitter / resizer",
-  "author": "Antoni Andre <antoniandre.web@gmail.com>",
+  "author": "Tiago Martins <tiagomartins@gestow.com>",
   "homepage": "https://antoniandre.github.io/splitpanes",
-  "repository": "https://github.com/mkISLda/vue-splitpanes",
+  "repository": "https://github.com/mkISLda/splitpanes",
   "license": "MIT",
   "funding": "https://github.com/sponsors/antoniandre",
   "main": "./dist/splitpanes.es.js",
@@ -25,7 +25,6 @@
   },
   "type": "module",
   "keywords": [
-    "vue-splitpanes",
     "splitpanes",
     "split panes",
     "panes resizer",
@@ -36,9 +35,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base /vue-splitpanes/",
+    "build": "vite build --base /splitpanes/",
     "build-bundle": "BUNDLE=true vite build && mv ./dist/style.css ./dist/splitpanes.css",
-    "serve": "vite preview --base /vue-splitpanes/",
+    "serve": "vite preview --base /splitpanes/",
     "publish-doc": "npm run build && npm run build-bundle && git add . && git commit -m 'Publish documentation on Github.' && git push && git push --tag"
   },
   "devDependencies": {
