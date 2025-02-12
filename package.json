@@ -1,6 +1,6 @@
 {
   "name": "splitpanes",
-  "version": "3.1.8+1",
+  "version": "4.0.1",
   "description": "A Vue.js reliable, simple and touch-ready panes splitter / resizer",
   "author": "Tiago Martins <tiagomartins@gestow.com>",
   "homepage": "https://antoniandre.github.io/splitpanes",
