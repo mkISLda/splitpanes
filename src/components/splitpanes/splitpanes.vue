@@ -382,6 +382,7 @@ export default {
     requestUpdate ({ target, ...args }) {
       const pane = this.indexedPanes[target._.uid]
       Object.entries(args).forEach(([key, value]) => (pane[key] = value))
+      this.resetPaneSizes({ addedPane: pane })
       this.$emit('resize', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
     },
 
