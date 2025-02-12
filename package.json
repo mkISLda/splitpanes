@@ -8,8 +8,8 @@
   "license": "MIT",
   "funding": "https://github.com/sponsors/antoniandre",
   "main": "./dist/splitpanes.es.js",
-  "unpkg": "dist/splitpanes.umd.cjs",
-  "jsdelivr": "dist/splitpanes.umd.cjs",
+  "unpkg": "dist/splitpanes.umd.js",
+  "jsdelivr": "dist/splitpanes.umd.js",
   "module": "./dist/splitpanes.es.js",
   "files": [
     "dist",
@@ -18,7 +18,7 @@
   "exports": {
     ".": {
       "import": "./dist/splitpanes.es.js",
-      "require": "./dist/splitpanes.umd.cjs"
+      "require": "./dist/splitpanes.umd.js"
     },
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
