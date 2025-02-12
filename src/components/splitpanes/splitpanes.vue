@@ -383,7 +383,7 @@ export default {
     requestUpdate ({ target, ...args }) {
       const pane = this.indexedPanes[target._.uid]
       Object.entries(args).forEach(([key, value]) => (pane[key] = value))
-      this.resetPaneSizes({ addedPane: pane })
+      this.resetPaneSizes()
       this.$emit('resize', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
     },
 
@@ -445,7 +445,7 @@ export default {
     resetPaneSizes (changedPanes = {}) {
       if (!changedPanes.addedPane && !changedPanes.removedPane) this.initialPanesSizing()
       else if (this.panes.some(pane => pane.givenSize !== null || pane.min || pane.max < 100)) this.equalizeAfterAddOrRemove(changedPanes)
-      // else this.equalize()
+      else this.equalize()
 
       if (this.ready) this.$emit('resized', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
     },
