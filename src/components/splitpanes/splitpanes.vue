@@ -4,7 +4,7 @@ import { h } from 'vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'splitpanes',
-  emits: ['ready', 'resize', 'resized', 'pane-click', 'pane-maximize', 'pane-add', 'pane-remove', 'splitter-click'],
+  emits: ['ready', 'resize', 'resized', 'pane-click', 'pane-maximize', 'pane-minimize', 'pane-add', 'pane-remove', 'splitter-click'],
 
   props: {
     horizontal: { type: Boolean },
@@ -136,15 +136,22 @@ export default {
     },
 
     // On splitter dbl click or dbl tap maximize this pane.
-    onSplitterDblClick (event, splitterIndex) {
-      let totalMinSizes = 0
-      this.panes = this.panes.map((pane, i) => {
-        pane.size = i === splitterIndex ? pane.max : pane.min
-        if (i !== splitterIndex) totalMinSizes += pane.min
+    // onSplitterDblClick (event, splitterIndex) {
+    //   let totalMinSizes = 0
+    //   this.panes = this.panes.map((pane, i) => {
+    //     pane.size = i === splitterIndex ? pane.max : pane.min
+    //     if (i !== splitterIndex) totalMinSizes += pane.min
 
-        return pane
-      })
-      this.panes[splitterIndex].size -= totalMinSizes
+    //     return pane
+    //   })
+    //   this.panes[splitterIndex].size -= totalMinSizes
+    //   this.$emit('pane-maximize', this.panes[splitterIndex])
+    //   this.$emit('resized', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
+    // },
+
+    // On splitter dbl click or dbl tap minimize this pane.
+    onSplitterDblClick (event, splitterIndex) {
+      this.panes[splitterIndex].size = 0
       this.$emit('pane-maximize', this.panes[splitterIndex])
       this.$emit('resized', this.panes.map(pane => ({ min: pane.min, max: pane.max, size: pane.size })))
     },
