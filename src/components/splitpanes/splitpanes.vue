@@ -480,6 +480,7 @@ export default {
         if (pane.size <= pane.min) unshrinkable.push(pane.id)
       })
 
+      console.info('-------------------------------');
       console.info('leftToAllocate', leftToAllocate)
       console.info('ungrowable', ungrowable)
       console.info('unshrinkable', unshrinkable)
@@ -489,6 +490,7 @@ export default {
       if (leftToAllocate > 0.1) {
         this.panes.forEach(pane => {
           if (pane.size === null) {
+            console.info('PANE SIZE IS NULL');
             pane.size = Math.max(Math.min(leftToAllocate / (this.panesCount - definedSizes), pane.max), pane.min)
           }
           leftToAllocate2 -= pane.size
@@ -496,7 +498,7 @@ export default {
 
         console.info('leftToAllocate2', leftToAllocate2)
 
-        if (leftToAllocate2 > 0.1) this.readjustSizes(leftToAllocate, ungrowable, unshrinkable)
+        if (leftToAllocate2 > 0.1) this.readjustSizes(leftToAllocate2, ungrowable, unshrinkable)
       }
     },
 

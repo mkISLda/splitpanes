@@ -1,4 +1,4 @@
-import { h as c, createElementBlock as m, openBlock as p, normalizeStyle as z, renderSlot as f } from "vue";
+import { h as u, createElementBlock as m, openBlock as p, normalizeStyle as z, renderSlot as f } from "vue";
 const M = {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "splitpanes",
@@ -119,8 +119,8 @@ const M = {
       };
       const n = 0 + (this.pushOtherPanes ? 0 : t.prevPanesSize), s = 100 - (this.pushOtherPanes ? 0 : t.nextPanesSize), a = Math.max(Math.min(this.getCurrentDragPercentage(e), s), n);
       let o = [i, i + 1], r = this.panes[o[0]] || null, h = this.panes[o[1]] || null;
-      const l = r.max < 100 && a >= r.max + t.prevPanesSize, u = h.max < 100 && a <= 100 - (h.max + this.sumNextPanesSize(i + 1));
-      if (l || u) {
+      const l = r.max < 100 && a >= r.max + t.prevPanesSize, c = h.max < 100 && a <= 100 - (h.max + this.sumNextPanesSize(i + 1));
+      if (l || c) {
         l ? (r.size = r.max, h.size = Math.max(100 - r.max - t.prevPanesSize - t.nextPanesSize, 0)) : (r.size = Math.max(100 - h.max - t.prevPanesSize - this.sumNextPanesSize(i + 1), 0), h.size = h.max);
         return;
       }
@@ -224,11 +224,11 @@ const M = {
       let n = 0;
       this.panes.forEach((a) => {
         e -= a.size, a.size !== null && n++, a.size >= a.max && i.push(a.id), a.size <= a.min && t.push(a.id);
-      }), console.info("leftToAllocate", e), console.info("ungrowable", i), console.info("unshrinkable", t);
+      }), console.info("-------------------------------"), console.info("leftToAllocate", e), console.info("ungrowable", i), console.info("unshrinkable", t);
       let s = 100;
       e > 0.1 && (this.panes.forEach((a) => {
-        a.size === null && (a.size = Math.max(Math.min(e / (this.panesCount - n), a.max), a.min)), s -= a.size;
-      }), console.info("leftToAllocate2", s), s > 0.1 && this.readjustSizes(e, i, t));
+        a.size === null && (console.info("PANE SIZE IS NULL"), a.size = Math.max(Math.min(e / (this.panesCount - n), a.max), a.min)), s -= a.size;
+      }), console.info("leftToAllocate2", s), s > 0.1 && this.readjustSizes(s, i, t));
     },
     equalizeAfterAddOrRemove({ addedPane: e, removedPane: i } = {}) {
       let t = 100 / this.panesCount, n = 0;
@@ -382,7 +382,7 @@ const M = {
     this.container = this.$refs.container, this.checkSplitpanesNodes(), this.redoSplitters(), this.resetPaneSizes(), this.$emit("ready"), this.ready = !0;
   },
   render() {
-    return c(
+    return u(
       "div",
       {
         ref: "container",
