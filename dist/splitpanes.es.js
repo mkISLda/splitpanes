@@ -1,4 +1,4 @@
-import { h as u, createElementBlock as m, openBlock as p, normalizeStyle as z, renderSlot as f } from "vue";
+import { h as c, createElementBlock as m, openBlock as p, normalizeStyle as z, renderSlot as f } from "vue";
 const M = {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "splitpanes",
@@ -118,18 +118,18 @@ const M = {
         nextReachedMinPanes: 0
       };
       const n = 0 + (this.pushOtherPanes ? 0 : t.prevPanesSize), s = 100 - (this.pushOtherPanes ? 0 : t.nextPanesSize), a = Math.max(Math.min(this.getCurrentDragPercentage(e), s), n);
-      let o = [i, i + 1], r = this.panes[o[0]] || null, h = this.panes[o[1]] || null;
-      const l = r.max < 100 && a >= r.max + t.prevPanesSize, c = h.max < 100 && a <= 100 - (h.max + this.sumNextPanesSize(i + 1));
-      if (l || c) {
-        l ? (r.size = r.max, h.size = Math.max(100 - r.max - t.prevPanesSize - t.nextPanesSize, 0)) : (r.size = Math.max(100 - h.max - t.prevPanesSize - this.sumNextPanesSize(i + 1), 0), h.size = h.max);
+      let r = [i, i + 1], o = this.panes[r[0]] || null, h = this.panes[r[1]] || null;
+      const l = o.max < 100 && a >= o.max + t.prevPanesSize, u = h.max < 100 && a <= 100 - (h.max + this.sumNextPanesSize(i + 1));
+      if (l || u) {
+        l ? (o.size = o.max, h.size = Math.max(100 - o.max - t.prevPanesSize - t.nextPanesSize, 0)) : (o.size = Math.max(100 - h.max - t.prevPanesSize - this.sumNextPanesSize(i + 1), 0), h.size = h.max);
         return;
       }
       if (this.pushOtherPanes) {
         const d = this.doPushOtherPanes(t, a);
         if (!d) return;
-        ({ sums: t, panesToResize: o } = d), r = this.panes[o[0]] || null, h = this.panes[o[1]] || null;
+        ({ sums: t, panesToResize: r } = d), o = this.panes[r[0]] || null, h = this.panes[r[1]] || null;
       }
-      r !== null && (r.size = Math.min(Math.max(a - t.prevPanesSize - t.prevReachedMinPanes, r.min), r.max)), h !== null && (h.size = Math.min(Math.max(100 - a - t.nextPanesSize - t.nextReachedMinPanes, h.min), h.max));
+      o !== null && (o.size = Math.min(Math.max(a - t.prevPanesSize - t.prevReachedMinPanes, o.min), o.max)), h !== null && (h.size = Math.min(Math.max(100 - a - t.nextPanesSize - t.nextReachedMinPanes, h.min), h.max));
     },
     doPushOtherPanes(e, i) {
       const t = this.touch.activeSplitter, n = [t, t + 1];
@@ -224,19 +224,19 @@ const M = {
       let n = 0;
       this.panes.forEach((a) => {
         e -= a.size, a.size !== null && n++, a.size >= a.max && i.push(a.id), a.size <= a.min && t.push(a.id);
-      }), console.info("-------------------------------"), console.info("leftToAllocate", e), console.info("ungrowable", i), console.info("unshrinkable", t);
+      });
       let s = 100;
       e > 0.1 && (this.panes.forEach((a) => {
-        a.size === null && (console.info("PANE SIZE IS NULL"), a.size = Math.max(Math.min(e / (this.panesCount - n), a.max), a.min)), s -= a.size;
-      }), console.info("leftToAllocate2", s), s > 0.1 && this.readjustSizes(s, i, t));
+        a.size === null && (a.size = Math.max(Math.min(e / (this.panesCount - n), a.max), a.min)), s -= a.size;
+      }), s > 0.1 && this.readjustSizes(e, i, t));
     },
     equalizeAfterAddOrRemove({ addedPane: e, removedPane: i } = {}) {
       let t = 100 / this.panesCount, n = 0;
       const s = [], a = [];
-      e && e.givenSize !== null && (t = (100 - e.givenSize) / (this.panesCount - 1)), this.panes.forEach((o) => {
-        n -= o.size, o.size >= o.max && s.push(o.id), o.size <= o.min && a.push(o.id);
-      }), !(Math.abs(n) < 0.1) && (this.panes.forEach((o) => {
-        e && e.givenSize !== null && e.id === o.id || (o.size = Math.max(Math.min(t, o.max), o.min)), n -= o.size, o.size >= o.max && s.push(o.id), o.size <= o.min && a.push(o.id);
+      e && e.givenSize !== null && (t = (100 - e.givenSize) / (this.panesCount - 1)), this.panes.forEach((r) => {
+        n -= r.size, r.size >= r.max && s.push(r.id), r.size <= r.min && a.push(r.id);
+      }), !(Math.abs(n) < 0.1) && (this.panes.forEach((r) => {
+        e && e.givenSize !== null && e.id === r.id || (r.size = Math.max(Math.min(t, r.max), r.min)), n -= r.size, r.size >= r.max && s.push(r.id), r.size <= r.min && a.push(r.id);
       }), n > 0.1 && this.readjustSizes(n, s, a));
     },
     /* recalculatePaneSizes ({ addedPane, removedPane } = {}) {
@@ -294,11 +294,11 @@ const M = {
       let n;
       e > 0 ? n = e / (this.panesCount - i.length) : n = e / (this.panesCount - t.length), this.panes.forEach((s, a) => {
         if (e > 0 && !i.includes(s.id)) {
-          const o = Math.max(Math.min(s.size + n, s.max), s.min), r = o - s.size;
-          e -= r, s.size = o;
+          const r = Math.max(Math.min(s.size + n, s.max), s.min), o = r - s.size;
+          e -= o, s.size = r;
         } else if (!t.includes(s.id)) {
-          const o = Math.max(Math.min(s.size + n, s.max), s.min), r = o - s.size;
-          e -= r, s.size = o;
+          const r = Math.max(Math.min(s.size + n, s.max), s.min), o = r - s.size;
+          e -= o, s.size = r;
         }
         s.update({
           [this.horizontal ? "height" : "width"]: `${this.indexedPanes[s.id].size}%`
@@ -382,7 +382,7 @@ const M = {
     this.container = this.$refs.container, this.checkSplitpanesNodes(), this.redoSplitters(), this.resetPaneSizes(), this.$emit("ready"), this.ready = !0;
   },
   render() {
-    return u(
+    return c(
       "div",
       {
         ref: "container",
@@ -452,7 +452,7 @@ const M = {
 function P(e, i, t, n, s, a) {
   return p(), m("div", {
     class: "splitpanes__pane",
-    onClick: i[0] || (i[0] = (o) => a.onPaneClick(o, e._.uid)),
+    onClick: i[0] || (i[0] = (r) => a.onPaneClick(r, e._.uid)),
     style: z(e.style)
   }, [
     f(e.$slots, "default")
