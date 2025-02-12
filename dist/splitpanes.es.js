@@ -183,7 +183,7 @@ const M = {
     // Called by Pane component on programmatic resize.
     requestUpdate({ target: e, ...i }) {
       const t = this.indexedPanes[e._.uid];
-      Object.entries(i).forEach(([n, s]) => t[n] = s);
+      Object.entries(i).forEach(([n, s]) => t[n] = s), this.$emit("resize", this.panes.map((n) => ({ min: n.min, max: n.max, size: n.size })));
     },
     onPaneAdd(e) {
       let i = -1;
@@ -397,12 +397,12 @@ const M = {
       this.$slots.default()
     );
   }
-}, S = (e, i) => {
+}, x = (e, i) => {
   const t = e.__vccOpts || e;
   for (const [n, s] of i)
     t[n] = s;
   return t;
-}, x = {
+}, S = {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "pane",
   inject: ["requestUpdate", "onPaneAdd", "onPaneRemove", "onPaneClick"],
@@ -458,7 +458,7 @@ function P(e, i, t, n, s, a) {
     f(e.$slots, "default")
   ], 4);
 }
-const g = /* @__PURE__ */ S(x, [["render", P]]);
+const g = /* @__PURE__ */ x(S, [["render", P]]);
 export {
   g as Pane,
   M as Splitpanes
